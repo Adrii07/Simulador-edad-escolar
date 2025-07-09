@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Calcular Edad y Nivel</title>
+</head>
+<body>
+    <h2>Formulario de Fecha de Nacimiento</h2>
+    <form id="formEdad">
+        <label for="fechaNacimiento">Fecha de nacimiento:</label>
+        <input type="date" id="fechaNacimiento" required>
+        <button type="submit">Calcular Nivel</button>
+    </form>
+    <p id="resultado"></p>
+    <h1>Diagrama de flujo:</h1>
+    <img src="diagrama.png">
+    <script>
+        const form = document.getElementById('formEdad');
+        const resultado = document.getElementById('resultado');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fechaNacimiento = new Date(document.getElementById('fechaNacimiento').value);
+            const hoy = new Date();
+            let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+            const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+                edad--;
+            }
+
+            if (edad < 12) {
+                resultado.textContent = "Nivel Primario";
+            } else if (edad >= 12 && edad <= 15) {
+                resultado.textContent = "Nivel Secundario Inicial";
+            } else if (edad >= 16 && edad <= 18) {
+                resultado.textContent = "Nivel Secundario Final";
+            } else {
+                resultado.textContent = "Fuera de rango para los niveles definidos.";
+            }
+        });
+    </script>
+</body>
+</html>
